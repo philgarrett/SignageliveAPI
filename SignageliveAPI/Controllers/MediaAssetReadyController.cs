@@ -38,6 +38,5 @@ namespace SignageliveAPI.Controllers
             }
             return "{}";
         }
-        
     }
 }
