@@ -3,11 +3,11 @@
 A Signagelive API Proxy
 
 You will need to add a class capable of returning the following values:
-ClientId
-ClientSecret
-NetworkId
-AuthorizationCode
-NetworkUrl
+- ClientId
+- ClientSecret
+- NetworkId
+- AuthorizationCode
+- NetworkUrl
 
 The code below will do the job.
 
