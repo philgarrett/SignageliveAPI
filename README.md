@@ -9,7 +9,7 @@ You will need to add a class capable of returning the following values:
 - AuthorizationCode
 - NetworkUrl
 
-The code below will do the job.
+The code below will do the job, you will need to populate the various parameters
 
 ~~~
 namespace SignageliveAPI.Controllers
