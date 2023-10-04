@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using RestSharp;
+using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,13 +21,30 @@ namespace SignageliveAPI.Controllers
             networkUrl = pp.NetWorkUrl;
         }
 
-        // GET: api/<MediaAssetsController>
-        [HttpGet]
-        public string Get([FromHeader] string authorization)
+        [HttpGet("")]
+        public string Get([FromHeader] string authorization, string? limit = null, string? search = null)
         {
+            int notNullCount = 0;
             RestClient restClient = new RestClient(networkUrl);
 
             string request_resource = string.Format("networks/{0}/{1}", networkId, "mediaassets");
+
+            if (limit != null)
+            {
+                notNullCount++;
+                if (notNullCount == 1)
+                    request_resource += string.Format("?limit={0}", limit);
+                else
+                    request_resource += string.Format("&limit={0}", limit);
+            }
+            if (search != null)
+            {
+                notNullCount++;
+                if (notNullCount == 1)
+                    request_resource += string.Format("?search={0}", search);
+                else
+                    request_resource += string.Format("&search={0}", search);
+            }
 
             RestRequest restRequest = new RestRequest(request_resource, Method.Get);
             restRequest.AddHeader("Authorization", authorization);
@@ -42,7 +60,7 @@ namespace SignageliveAPI.Controllers
 
         // GET api/<PlayerController>/5
         [HttpGet("{id}")]
-        public string Get(int id, [FromHeader] string authorization)
+        public string Get([FromHeader] string authorization, int id)
         {
             RestClient restClient = new RestClient(networkUrl);
 
@@ -59,5 +77,26 @@ namespace SignageliveAPI.Controllers
             }
             return "{}";
         }
+
+        [HttpGet("ready")]
+        public string GetMediaAssetReady([FromHeader] string authorization, string physicalFileName)
+        {
+            RestClient restClient = new RestClient(networkUrl);
+
+            string request_resource = string.Format("networks/{0}/{1}?physicalFileName={2}", networkId, "mediaassets/ready", physicalFileName);
+
+            RestRequest restRequest = new RestRequest(request_resource, Method.Get);
+            restRequest.AddHeader("Authorization", authorization);
+            restRequest.AddHeader("Content-Type", "application/json");
+
+            RestResponse response = restClient.Execute(restRequest);
+            if (response.IsSuccessful && response.Content != null)
+            {
+                return response.Content;
+            }
+            return "[]";
+        }
+
+
     }
 }

@@ -21,7 +21,7 @@ namespace SignageliveAPI.Controllers
         }
 
         // GET: api/<PlayerController>
-        [HttpGet]
+        [HttpGet("")]
         public string Get([FromHeader] string authorization)
         {
             RestClient restClient = new RestClient(networkUrl);
@@ -42,7 +42,7 @@ namespace SignageliveAPI.Controllers
 
         // GET api/<PlayerController>/5
         [HttpGet("{id}")]
-        public string Get(int id, [FromHeader] string authorization)
+        public string Get([FromHeader] string authorization, int id)
         {
             RestClient restClient = new RestClient(networkUrl);
 
@@ -61,7 +61,7 @@ namespace SignageliveAPI.Controllers
         }
 
         [HttpGet("{id}/systeminformation")]
-        public string GetSystemInformation(int id, [FromHeader] string authorization)
+        public string GetSystemInformation([FromHeader] string authorization, int id)
         {
             RestClient restClient = new RestClient(networkUrl);
 
@@ -80,7 +80,7 @@ namespace SignageliveAPI.Controllers
         }
 
         [HttpGet("{id}/networking")]
-        public string GetNetworking(int id, [FromHeader] string authorization)
+        public string GetNetworking([FromHeader] string authorization, int id)
         {
             RestClient restClient = new RestClient(networkUrl);
 
@@ -99,7 +99,7 @@ namespace SignageliveAPI.Controllers
         }
 
         [HttpGet("{id}/notes")]
-        public string GetContentSchedules(int id, [FromHeader] string authorization)
+        public string GetContentSchedules([FromHeader] string authorization, int id)
         {
             RestClient restClient = new RestClient(networkUrl);
 
@@ -118,7 +118,7 @@ namespace SignageliveAPI.Controllers
         }
 
         [HttpGet("{id}/mediaassets")]
-        public string GetMediaAssets(int id, [FromHeader] string authorization)
+        public string GetMediaAssets([FromHeader] string authorization, int id)
         {
             RestClient restClient = new RestClient(networkUrl);
 
