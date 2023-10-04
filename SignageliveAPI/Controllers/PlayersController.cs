@@ -5,7 +5,7 @@ using RestSharp;
 
 namespace SignageliveAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class PlayersController : ControllerBase
     {
@@ -117,12 +117,12 @@ namespace SignageliveAPI.Controllers
             return "{}";
         }
 
-        [HttpGet("{id}/mediaassets")]
-        public string GetMediaAssets([FromHeader] string authorization, int id)
+        [HttpGet("{id}/content")]
+        public string GetContent([FromHeader] string authorization, int id)
         {
             RestClient restClient = new RestClient(networkUrl);
 
-            string request_resource = string.Format("networks/{0}/{1}/{2}/mediaassets", networkId, "players", id);
+            string request_resource = string.Format("networks/{0}/{1}/{2}/content", networkId, "players", id);
 
             RestRequest restRequest = new RestRequest(request_resource, Method.Get);
             restRequest.AddHeader("Authorization", authorization);
