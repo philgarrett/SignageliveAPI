@@ -6,7 +6,7 @@ using System.Net;
 
 namespace SignageliveAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class NetworkKPISettingsController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace SignageliveAPI.Controllers
             networkUrl = pp.NetWorkUrl;
         }
         
-        // GET: api/<NetworkKPISettingsController>
+        // GET: <NetworkKPISettingsController>
         [HttpGet]
         public string Get([FromHeader] string authorization)
         {
@@ -41,26 +41,26 @@ namespace SignageliveAPI.Controllers
             return "{}";
         }
 
-        // GET api/<NetworkKPISettingsController>/5
+        // GET <NetworkKPISettingsController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
             return "value";
         }
 
-        // POST api/<NetworkKPISettingsController>
+        // POST <NetworkKPISettingsController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
-        // PUT api/<NetworkKPISettingsController>/5
+        // PUT <NetworkKPISettingsController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<NetworkKPISettingsController>/5
+        // DELETE <NetworkKPISettingsController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

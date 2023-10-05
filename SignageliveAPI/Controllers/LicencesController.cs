@@ -7,12 +7,12 @@ namespace SignageliveAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class LicencesController : ControllerBase
     {
         string networkId;
         string networkUrl;
 
-        public UsersController()
+        public LicencesController()
         {
             IParameters p = new Parameters();
             Parameters pp = p.GetParameters();
@@ -20,33 +20,13 @@ namespace SignageliveAPI.Controllers
             networkUrl = pp.NetWorkUrl;
         }
 
-        // GET: <UserController>
-        [HttpGet]
-        public string Get([FromHeader] string authorization)
-        {
-            RestClient restClient = new RestClient(networkUrl);
-
-            string request_resource = string.Format("networks/{0}/{1}", networkId, "users");
-
-            RestRequest restRequest = new RestRequest(request_resource, Method.Get);
-            restRequest.AddHeader("Authorization", authorization);
-            restRequest.AddHeader("Content-Type", "application/json");
-
-            RestResponse response = restClient.Execute(restRequest);
-            if (response.IsSuccessful && response.Content != null)
-            {
-                return response.Content;
-            }
-            return "[]";
-        }
-
-        // GET <UserController>/5
+        // GET api/<LicencesController>/5
         [HttpGet("{id}")]
-        public string Get(int id, [FromHeader] string authorization)
+        public string Get([FromHeader] string authorization, int id)
         {
             RestClient restClient = new RestClient(networkUrl);
 
-            string request_resource = string.Format("networks/{0}/{1}/{2}", networkId, "users", id);
+            string request_resource = string.Format("networks/{0}/{1}/{2}", networkId, "licences", id);
 
             RestRequest restRequest = new RestRequest(request_resource, Method.Get);
             restRequest.AddHeader("Authorization", authorization);
@@ -60,22 +40,42 @@ namespace SignageliveAPI.Controllers
             return "{}";
         }
 
-        // POST <UserController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpGet("summary")]
+        public string GetLicencesSummary([FromHeader] string authorization)
         {
+            RestClient restClient = new RestClient(networkUrl);
+
+            string request_resource = string.Format("networks/{0}/{1}", networkId, "licences/summary");
+
+            RestRequest restRequest = new RestRequest(request_resource, Method.Get);
+            restRequest.AddHeader("Authorization", authorization);
+            restRequest.AddHeader("Content-Type", "application/json");
+
+            RestResponse response = restClient.Execute(restRequest);
+            if (response.IsSuccessful && response.Content != null)
+            {
+                return response.Content;
+            }
+            return "{}";
         }
 
-        // PUT <UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpGet("{id}/summary")]
+        public string GetLicenceSummary([FromHeader] string authorization, int id)
         {
-        }
+            RestClient restClient = new RestClient(networkUrl);
 
-        // DELETE <UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            string request_resource = string.Format("networks/{0}/licences/{1}/summary", networkId, id);
+
+            RestRequest restRequest = new RestRequest(request_resource, Method.Get);
+            restRequest.AddHeader("Authorization", authorization);
+            restRequest.AddHeader("Content-Type", "application/json");
+
+            RestResponse response = restClient.Execute(restRequest);
+            if (response.IsSuccessful && response.Content != null)
+            {
+                return response.Content;
+            }
+            return "{}";
         }
     }
 }

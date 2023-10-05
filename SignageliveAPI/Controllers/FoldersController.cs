@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SignageliveAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class FoldersController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace SignageliveAPI.Controllers
             networkUrl = pp.NetWorkUrl;
         }
 
-        // GET: api/<FoldersController>
+        // GET: <FoldersController>
         [HttpGet]
         public string Get([FromHeader] string authorization, string? limit = null, string? type = null)
         {
@@ -60,7 +60,7 @@ namespace SignageliveAPI.Controllers
             return "[]";
         }
 
-        // GET api/<FoldersController>/5
+        // GET <FoldersController>/5
         [HttpGet("{id}")]
         public string Get([FromHeader] string authorization, int id)
         {

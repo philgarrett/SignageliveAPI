@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SignageliveAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class MediaAssetsController : ControllerBase
     {
@@ -58,7 +58,7 @@ namespace SignageliveAPI.Controllers
             return "[]";
         }
 
-        // GET api/<PlayerController>/5
+        // GET <MediaAssetsController>/5
         [HttpGet("{id}")]
         public string Get([FromHeader] string authorization, int id)
         {
@@ -83,7 +83,7 @@ namespace SignageliveAPI.Controllers
         {
             RestClient restClient = new RestClient(networkUrl);
 
-            string request_resource = string.Format("networks/{0}/{1}?physicalFileName={2}", networkId, "mediaassets/ready", physicalFileName);
+            string request_resource = string.Format("networks/{0}/mediaassets/ready?physicalFileName={1}", networkId, physicalFileName);
 
             RestRequest restRequest = new RestRequest(request_resource, Method.Get);
             restRequest.AddHeader("Authorization", authorization);
@@ -97,6 +97,26 @@ namespace SignageliveAPI.Controllers
             return "[]";
         }
 
+        [HttpPost("add")]
+        public string Post([FromHeader] string authorization, [FromBody] string fileUploadRequests)
+        {
+            RestClient restClient = new RestClient(networkUrl);
+
+            string request_resource = string.Format("networks/{0}/mediaassets/add", networkId);
+
+            RestRequest restRequest = new RestRequest(request_resource, Method.Post);
+            restRequest.AddHeader("Authorization", authorization);
+            restRequest.AddHeader("Content-Type", "application/json");
+
+            restRequest.AddJsonBody<string>(fileUploadRequests);
+
+            RestResponse response = restClient.Execute(restRequest);
+            if (response.IsSuccessStatusCode && response.Content != null)
+            {
+                return response.Content;
+            }
+            return "{}";
+        }
 
     }
 }

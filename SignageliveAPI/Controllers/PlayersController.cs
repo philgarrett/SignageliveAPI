@@ -20,7 +20,7 @@ namespace SignageliveAPI.Controllers
             networkUrl = pp.NetWorkUrl;
         }
 
-        // GET: api/<PlayerController>
+        // GET: <PlayerController>
         [HttpGet("")]
         public string Get([FromHeader] string authorization)
         {
@@ -40,7 +40,7 @@ namespace SignageliveAPI.Controllers
             return "[]";
         }
 
-        // GET api/<PlayerController>/5
+        // GET <PlayerController>/5
         [HttpGet("{id}")]
         public string Get([FromHeader] string authorization, int id)
         {

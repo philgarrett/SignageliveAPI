@@ -6,7 +6,7 @@ using RestSharp;
 
 namespace SignageliveAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class TokenController : ControllerBase
     {
@@ -27,7 +27,7 @@ namespace SignageliveAPI.Controllers
             networkUrl = pp.NetWorkUrl;
         }
 
-        // GET: api/<TokenController>
+        // GET: <TokenController>
         [HttpGet]
         public string Get()
         {

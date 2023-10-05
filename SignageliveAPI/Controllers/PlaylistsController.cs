@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SignageliveAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class PlaylistsController : ControllerBase
     {
@@ -21,7 +21,7 @@ namespace SignageliveAPI.Controllers
             networkUrl = pp.NetWorkUrl;
         }
 
-        // GET: api/<PlaylistController>
+        // GET: <PlaylistController>
         [HttpGet]
         public string Get([FromHeader] string authorization, string? limit = null, string? search = null)
         {
@@ -59,7 +59,7 @@ namespace SignageliveAPI.Controllers
             return "[]";
         }
 
-        // GET api/<PlaylistController>/5
+        // GET <PlaylistController>/5
         [HttpGet("{id}")]
         public string Get(int id, [FromHeader] string authorization)
         {
@@ -79,9 +79,9 @@ namespace SignageliveAPI.Controllers
             return "{}";
         }
 
-        // POST api/<PlaylistController>
+        // POST <PlaylistController>
         [HttpPost]
-        public string Post([FromBody] string playlistName, [FromHeader] string authorization)
+        public string Post([FromHeader] string authorization, [FromBody] string playlistName)
         {
             RestClient restClient = new RestClient(networkUrl);
 
@@ -102,13 +102,13 @@ namespace SignageliveAPI.Controllers
             return "{}";
         }
 
-        // PUT api/<PlaylistController>/5
+        // PUT <PlaylistController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
-        // DELETE api/<PlaylistController>/5
+        // DELETE <PlaylistController>/5
         [HttpDelete("{id}")]
         public string Delete(int id, [FromHeader] string authorization)
         {
